@@ -1,7 +1,7 @@
 <template>
     <div class="card mb-3">
         <div class="card-body">
-            <h5 class="card-title">{{ book.title }}</h5>
+            <h5 class="card-title">Tên sách: {{ book.title }}</h5>
             <p class="card-text">Tác giả: {{ book.author }}</p>
             <p class="card-text">Nhà xuất bản: {{ book.publisher }}</p>
             <p class="card-text">Năm xuất bản: {{ book.publicationYear }}</p>

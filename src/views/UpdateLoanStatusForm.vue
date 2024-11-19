@@ -23,11 +23,12 @@
 
 <script>
 import loanService from '../services/loan.service';
+import Swal from 'sweetalert2';
 
 export default {
     data() {
         return {
-            loan: null,
+            loan: null, // Chứa dữ liệu mượn sách
         };
     },
     async created() {
@@ -49,13 +50,29 @@ export default {
             }
 
             try {
+                // Gửi yêu cầu cập nhật
                 await loanService.update(this.$route.params.id, {
                     returned: this.loan.returned,
                     returnDate: this.loan.returnDate,
                 });
-                this.$router.push('/loans'); // Quay về danh sách mượn sách sau khi cập nhật thành công
+
+                // Hiển thị thông báo cập nhật thành công
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Cập nhật thành công!',
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+
+                // Quay về danh sách mượn sách
+                this.$router.push('/loans');
             } catch (error) {
                 console.error("Error updating loan status:", error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Có lỗi xảy ra',
+                    text: 'Không thể cập nhật trạng thái mượn sách. Vui lòng thử lại!',
+                });
             }
         },
         formatDate(date) {

@@ -1,8 +1,8 @@
 <template>
     <div class="card mb-3">
         <div class="card-body">
-            <h5 class="card-title">{{ borrower.name }}</h5>
-            <p class="card-text">Liên Hệ: {{ borrower.contact }}</p>
+            <h5 class="card-title">Tên Người Mượn: {{ borrower.name }}</h5>
+            <p class="card-text">Địa Chỉ: {{ borrower.contact }}</p>
             <p class="card-text">Email: {{ borrower.email }}</p>
             <p class="card-text">Số điện thoại: {{ borrower.phone }}</p>
             <button @click="editBorrower" class="btn btn-primary me-2">Tuỳ chỉnh người mượn</button>

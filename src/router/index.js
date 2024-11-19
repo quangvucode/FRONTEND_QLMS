@@ -18,7 +18,6 @@ const routes = [
     { path: '/borrowers/edit/:id', component: BorrowerForm },
     { path: '/loans', component: LoanList },
     { path: '/loans/add', component: LoanForm },
-    { path: '/loans/edit/:id', component: LoanForm },
     { path: '/loans/update-status/:id', component: UpdateLoanStatusForm },
 
 ];

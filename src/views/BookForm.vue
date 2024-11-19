@@ -4,11 +4,23 @@
     <form @submit.prevent="saveBook">
       <div class="mb-3">
         <label for="title" class="form-label">Tên Sách</label>
-        <input v-model="book.title" type="text" class="form-control" id="title" required />
+        <input v-model="book.title" type="text" class="form-control" id="title" required placeholder="Nhập tên sách" />
       </div>
       <div class="mb-3">
         <label for="author" class="form-label">Tác Giả</label>
-        <input v-model="book.author" type="text" class="form-control" id="author" required />
+        <input v-model="book.author" type="text" class="form-control" id="author" required placeholder="Nhập tác giả" />
+      </div>
+      <div class="mb-3">
+        <label for="publicationYear" class="form-label">Năm Xuất Bản</label>
+        <input v-model="book.publicationYear" type="number" class="form-control" id="publicationYear" required placeholder="Nhập năm xuất bản" />
+      </div>
+      <div class="mb-3">
+        <label for="publisher" class="form-label">Nhà Xuất Bản</label>
+        <input v-model="book.publisher" type="text" class="form-control" id="publisher" required placeholder="Nhập nhà xuất bản" />
+      </div>
+      <div class="mb-3">
+        <label for="copies" class="form-label">Số Bản Phát Hành</label>
+        <input v-model="book.copies" type="number" class="form-control" id="copies" required />
       </div>
       <button type="submit" class="btn btn-primary">{{ isEdit ? 'Cập nhật' : 'Lưu' }}</button>
     </form>
@@ -17,6 +29,7 @@
 
 <script>
 import BookService from '../services/book.service';
+import Swal from 'sweetalert2';
 
 export default {
   data() {
@@ -24,6 +37,9 @@ export default {
       book: {
         title: '',
         author: '',
+        publicationYear: '',
+        publisher: '',
+        copies: 1,
       },
       isEdit: false,
     };
@@ -47,9 +63,25 @@ export default {
         } else {
           await BookService.create(this.book);
         }
+
+        // Hiển thị thông báo thành công
+        Swal.fire({
+          icon: 'success',
+          title: 'Đã lưu thành công!',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
         this.$router.push('/books');
       } catch (error) {
         console.error("Error saving book:", error);
+
+        // Hiển thị thông báo lỗi
+        Swal.fire({
+          icon: 'error',
+          title: 'Có lỗi xảy ra',
+          text: 'Vui lòng thử lại!',
+        });
       }
     },
   },
