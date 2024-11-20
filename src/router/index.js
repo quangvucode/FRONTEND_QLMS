@@ -1,15 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import BookList from '../views/BookList.vue';
+import Home from '../views/Home.vue';
 import BorrowerList from '../views/BorrowerList.vue';
 import LoanList from '../views/LoanList.vue';
 import BookForm from '../views/BookForm.vue';
 import BorrowerForm from '../views/BorrowerForm.vue';
 import LoanForm from '../views/LoanForm.vue';
 import UpdateLoanStatusForm from '../views/UpdateLoanStatusForm.vue';
+import Login from '../views/Login.vue';
+import Register from '../views/Register.vue';
 
 
 const routes = [
-    { path: '/', redirect: '/books' },
+    { path: '/', component: Home },
     { path: '/books', component: BookList },
     { path: '/books/add', component: BookForm },
     { path: '/books/edit/:id', component: BookForm },
@@ -19,6 +22,8 @@ const routes = [
     { path: '/loans', component: LoanList },
     { path: '/loans/add', component: LoanForm },
     { path: '/loans/update-status/:id', component: UpdateLoanStatusForm },
+    { path: '/login', component: Login },
+    { path: '/register', component: Register },
 
 ];
 

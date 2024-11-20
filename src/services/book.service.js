@@ -1,4 +1,3 @@
-// src/services/book.service.js
 import apiClient from './api.service';
 
 class BookService {
@@ -14,12 +13,28 @@ class BookService {
 
     // Thêm một cuốn sách mới
     create(data) {
-        return apiClient.post('/books', data);
+        // Kiểm tra nếu là FormData thì sử dụng Content-Type multipart/form-data
+        if (data instanceof FormData) {
+            return apiClient.post('/books', data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+        }
+        return apiClient.post('/books', data); // Trường hợp không có file
     }
 
     // Cập nhật thông tin sách theo ID
     update(id, data) {
-        return apiClient.put(`/books/${id}`, data);
+        // Kiểm tra nếu là FormData thì sử dụng Content-Type multipart/form-data
+        if (data instanceof FormData) {
+            return apiClient.put(`/books/${id}`, data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+        }
+        return apiClient.put(`/books/${id}`, data); // Trường hợp không có file
     }
 
     // Xóa sách theo ID

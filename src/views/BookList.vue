@@ -1,25 +1,30 @@
 <template>
-    <div>
-        <h1>Danh sách Sách</h1>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Danh sách Sách</h1>
         <router-link to="/books/add" class="btn btn-primary mb-3">Thêm sách</router-link>
-        
-        <!-- Sử dụng BookCard để hiển thị từng sách -->
-        <BookCard
-            v-for="book in books"
-            :key="book._id"
-            :book="book"
-            @delete-book="deleteBook"
-        />
+
+        <div class="row gx-3 gy-4"><!-- Sử dụng gx-3 để giảm khoảng cách ngang, gy-4 để kiểm soát khoảng cách dọc -->
+            <div
+                class="col-12 col-md-6 col-lg-4"
+                v-for="book in books"
+                :key="book._id"
+            >
+                <BookCard
+                    :book="book"
+                    @delete-book="deleteBook"
+                />
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
-import Swal from 'sweetalert2'; // Import SweetAlert2
+import Swal from 'sweetalert2';
 import BookCard from '../components/BookCard.vue';
 import bookService from '../services/book.service';
 
 export default {
-    components: { BookCard }, // Khai báo sử dụng BookCard
+    components: { BookCard },
     data() {
         return {
             books: [],
@@ -36,7 +41,6 @@ export default {
     methods: {
         async deleteBook(id) {
             try {
-                // Hiển thị xác nhận trước khi xóa
                 const result = await Swal.fire({
                     title: 'Bạn có chắc muốn xoá sách này?',
                     text: "Hành động này không thể hoàn tác!",
@@ -49,9 +53,8 @@ export default {
                 });
 
                 if (result.isConfirmed) {
-                    await bookService.delete(id); // Gọi API để xóa sách
-                    this.books = this.books.filter(book => book._id !== id); // Cập nhật danh sách
-
+                    await bookService.delete(id);
+                    this.books = this.books.filter(book => book._id !== id);
                     Swal.fire('Đã xóa!', 'Sách đã được xóa thành công.', 'success');
                 }
             } catch (error) {
